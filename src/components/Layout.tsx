@@ -81,9 +81,31 @@ export default function Layout() {
           <title>{seo.seo_title}</title>
           <meta name="description" content={seo.seo_description} />
           <meta name="keywords" content={seo.seo_keywords} />
+          {/* Open Graph */}
           <meta property="og:title" content={seo.seo_title} />
           <meta property="og:description" content={seo.seo_description} />
           <meta property="og:site_name" content={seo.site_name} />
+          <meta property="og:type" content="website" />
+          {seo.og_image_url && <meta property="og:image" content={seo.og_image_url} />}
+          {seo.canonical_base_url && <meta property="og:url" content={seo.canonical_base_url} />}
+          {/* Twitter Card */}
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:title" content={seo.seo_title} />
+          <meta name="twitter:description" content={seo.seo_description} />
+          {seo.og_image_url && <meta name="twitter:image" content={seo.og_image_url} />}
+          {/* Favicon */}
+          {seo.favicon_url && <link rel="icon" href={seo.favicon_url} />}
+          {/* Canonical URL */}
+          {seo.canonical_base_url && <link rel="canonical" href={seo.canonical_base_url} />}
+          {/* Google Search Console Verification */}
+          {seo.google_site_verification && <meta name="google-site-verification" content={seo.google_site_verification} />}
+          {/* Google Analytics */}
+          {seo.google_analytics_id && (
+            <script async src={`https://www.googletagmanager.com/gtag/js?id=${seo.google_analytics_id}`}></script>
+          )}
+          {seo.google_analytics_id && (
+            <script>{`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${seo.google_analytics_id}');`}</script>
+          )}
         </Helmet>
       )}
       {/* Desktop Navbar */}
@@ -261,7 +283,7 @@ export default function Layout() {
           
           <div className="mt-12 md:mt-16 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center gap-6">
             <p className="text-xs text-gray-500 text-center md:text-left">
-              © 2026 TrustRank Analytics. All rights reserved. 18+ Only. Please play responsibly.
+              {seo?.footer_copyright || '© 2026 TrustRank Analytics. All rights reserved. 18+ Only. Please play responsibly.'}
             </p>
             <div className="flex flex-wrap justify-center gap-3">
               <span className="text-xs text-gray-600 bg-gray-900 px-3 py-1 rounded-full border border-gray-800">SSL Secured</span>

@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import { EditButton, Edit, useForm } from "@refinedev/antd";
-import { Form, Input, Button, Space } from "antd";
+import { Form, Input, Button, Space, Divider } from "antd";
 import { Download, FileText } from "lucide-react";
+import { ImageUpload } from "../components/ImageUpload";
 
 
 export const SiteSettingsEdit = () => {
@@ -20,22 +21,51 @@ export const SiteSettingsEdit = () => {
       headerProps={{ extra: null }} // hide delete button
     >
       <Form {...formProps} layout="vertical">
+
+        {/* ── Basic Site Identity ── */}
+        <Divider orientation="left" style={{ fontSize: '16px', fontWeight: 600 }}>Site Identity</Divider>
         <Form.Item label="Site Name" name="site_name" rules={[{ required: true }]}>
           <Input />
         </Form.Item>
-        <Form.Item label="Global SEO Title" name="seo_title" rules={[{ required: true }]}>
+        <Form.Item label="Favicon URL" name="favicon_url" extra="URL to your site's favicon (.ico or .png). Displays in browser tabs.">
+          <ImageUpload />
+        </Form.Item>
+
+        {/* ── Core SEO Meta Tags ── */}
+        <Divider orientation="left" style={{ fontSize: '16px', fontWeight: 600 }}>SEO Meta Tags</Divider>
+        <Form.Item label="Global SEO Title" name="seo_title" rules={[{ required: true }]} extra="The default <title> shown in browser tabs and search engine results.">
           <Input />
         </Form.Item>
-        <Form.Item label="Global Meta Description" name="seo_description" rules={[{ required: true }]}>
-          <Input.TextArea rows={3} />
+        <Form.Item label="Global Meta Description" name="seo_description" rules={[{ required: true }]} extra="Displayed beneath the title in search results. Keep under 160 characters.">
+          <Input.TextArea rows={3} showCount maxLength={160} />
         </Form.Item>
-        <Form.Item label="Global Meta Keywords" name="seo_keywords" rules={[{ required: true }]}>
+        <Form.Item label="Global Meta Keywords" name="seo_keywords" rules={[{ required: true }]} extra="Comma-separated keywords for search engines.">
           <Input />
         </Form.Item>
+
+        {/* ── Open Graph / Social Sharing ── */}
+        <Divider orientation="left" style={{ fontSize: '16px', fontWeight: 600 }}>Social Sharing (Open Graph)</Divider>
+        <Form.Item label="Default OG Image" name="og_image_url" extra="Default image shown when pages are shared on social media (1200×630 recommended).">
+          <ImageUpload />
+        </Form.Item>
+        <Form.Item label="Canonical Base URL" name="canonical_base_url" extra="Your site's production URL (e.g. https://trustrank.com). Used for canonical tags and OG URLs.">
+          <Input placeholder="https://trustrank.com" />
+        </Form.Item>
+
+        {/* ── Search Engine Verification & Analytics ── */}
+        <Divider orientation="left" style={{ fontSize: '16px', fontWeight: 600 }}>Analytics & Verification</Divider>
+        <Form.Item label="Google Site Verification" name="google_site_verification" extra="The content value from Google Search Console's meta tag verification.">
+          <Input placeholder="e.g. dGhpcyBpcyBub3QgYSByZWFsIHRva2Vu" />
+        </Form.Item>
+        <Form.Item label="Google Analytics ID" name="google_analytics_id" extra="Your GA4 Measurement ID (e.g. G-XXXXXXXXXX) or GTM ID (e.g. GTM-XXXXXXX).">
+          <Input placeholder="G-XXXXXXXXXX" />
+        </Form.Item>
+
+        {/* ── Crawl Control ── */}
+        <Divider orientation="left" style={{ fontSize: '16px', fontWeight: 600 }}>Crawl Control</Divider>
         <Form.Item label="Robots.txt Content" name="robots_txt" extra="Specify your site's robots.txt rules here.">
           <Input.TextArea rows={10} placeholder="User-agent: *\nAllow: /" />
         </Form.Item>
-
         <Form.Item label="Sitemap Management" extra="The sitemap is dynamically generated and always up-to-date.">
           <Space>
             <Button 
@@ -56,6 +86,12 @@ export const SiteSettingsEdit = () => {
               View Sitemap
             </Button>
           </Space>
+        </Form.Item>
+
+        {/* ── Footer ── */}
+        <Divider orientation="left" style={{ fontSize: '16px', fontWeight: 600 }}>Footer</Divider>
+        <Form.Item label="Copyright Text" name="footer_copyright" extra="Displayed in the site footer. Leave empty for default.">
+          <Input placeholder="© 2026 TrustRank Analytics. All rights reserved." />
         </Form.Item>
       </Form>
     </Edit>
