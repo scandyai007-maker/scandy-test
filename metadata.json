@@ -1,0 +1,5 @@
+{
+  "name": "GamePortal",
+  "description": "A responsive mobile game distribution portal with Home, Games, News, and Collections sections.",
+  "requestFramePermissions": []
+}
