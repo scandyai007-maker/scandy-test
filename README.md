@@ -1,20 +1,41 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# TrustRank - GamePortal
 
-# Run and deploy your AI Studio app
+A responsive platform review and ranking portal built with React, TypeScript, Vite, and Supabase.
 
-This contains everything you need to run your app locally.
+## Features
 
-View your app in AI Studio: https://ai.studio/apps/1e799336-695c-4afd-af4d-0bdae6b90b21
+- **Platform Reviews** — Detailed reviews with trust scores, features, and SEO-friendly slug URLs
+- **Industry News** — Content management with rich text editing and tag-based categorization
+- **Curated Collections** — Ranked lists of top platforms
+- **Admin CMS** — Full content management powered by Refine + Ant Design
+- **SEO Optimized** — Dynamic sitemap.xml, editable robots.txt, meta tags, and slug-based URLs
 
-## Run Locally
+## Tech Stack
 
-**Prerequisites:**  Node.js
+- **Frontend**: React 18 + TypeScript + Vite
+- **Styling**: Tailwind CSS
+- **Database**: Supabase (PostgreSQL)
+- **Admin**: Refine + Ant Design
+- **SEO**: react-helmet-async, dynamic sitemap/robots.txt
 
+## Getting Started
 
 1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+   ```bash
+   npm install
+   ```
+
+2. Copy `.env.example` to `.env.local` and fill in your Supabase credentials:
+   ```
+   VITE_SUPABASE_URL=your_supabase_url
+   VITE_SUPABASE_ANON_KEY=your_anon_key
+   ```
+
+3. Run the SQL migration scripts in `supabase/` folder on your Supabase instance.
+
+4. Start the dev server:
+   ```bash
+   npm run dev
+   ```
+
+5. Open http://localhost:3000
