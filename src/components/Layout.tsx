@@ -230,8 +230,8 @@ export default function Layout() {
       {/* Footer */}
       <footer className="border-t border-gray-800 bg-gray-900 mt-16 md:mt-24 pb-8 md:pb-0">
         <div className="max-w-[1400px] mx-auto py-12 md:py-16 px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-10 lg:gap-8">
-            <div className="col-span-1 md:col-span-1">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-10 lg:gap-8">
+            <div className="col-span-2 md:col-span-1">
               <Link to="/" className="flex items-center gap-3 mb-6">
                 <div className="bg-gradient-to-br from-amber-400 to-amber-600 text-[#111827] p-2 rounded-lg">
                   <ShieldCheck className="h-5 w-5" />
@@ -249,56 +249,54 @@ export default function Layout() {
               </div>
             </div>
             
-            <div className="grid grid-cols-2 md:grid-cols-1 gap-8 md:gap-0">
-              <div>
-                <h3 className="text-sm font-display font-semibold text-white uppercase tracking-wider mb-4 md:mb-6">
-                  {seo?.footer_column_1_title || 'Rankings'}
-                </h3>
-                <ul className="space-y-3 md:space-y-4">
-                  {seo?.footer_column_1_links && seo.footer_column_1_links.length > 0 ? (
-                    seo.footer_column_1_links.map((link: any, index: number) => (
-                      <li key={index}>
-                        <Link to={link.url} className="text-sm text-gray-400 hover:text-amber-400 transition-colors">
-                          {link.label}
-                        </Link>
-                      </li>
-                    ))
-                  ) : (
-                    <>
-                      <li><Link to="/" className="text-sm text-gray-400 hover:text-amber-400 transition-colors">Top 10 Overall</Link></li>
-                      <li><Link to="/collections" className="text-sm text-gray-400 hover:text-amber-400 transition-colors">Best Bonuses</Link></li>
-                      <li><Link to="/games" className="text-sm text-gray-400 hover:text-amber-400 transition-colors">Crypto Platforms</Link></li>
-                      <li><Link to="/news" className="text-sm text-gray-400 hover:text-amber-400 transition-colors">Newest Additions</Link></li>
-                    </>
-                  )}
-                </ul>
-              </div>
-              
-              <div className="md:mt-8">
-                <h3 className="text-sm font-display font-semibold text-white uppercase tracking-wider mb-4 md:mb-6">
-                  {seo?.footer_column_2_title || 'Resources'}
-                </h3>
-                <ul className="space-y-3 md:space-y-4">
-                  {seo?.footer_column_2_links && seo.footer_column_2_links.length > 0 ? (
-                    seo.footer_column_2_links.map((link: any, index: number) => (
-                      <li key={index}>
-                        <a href={link.url} className="text-sm text-gray-400 hover:text-amber-400 transition-colors">
-                          {link.label}
-                        </a>
-                      </li>
-                    ))
-                  ) : (
-                    <>
-                      <li><a href="#" className="text-sm text-gray-400 hover:text-amber-400 transition-colors">Review Methodology</a></li>
-                      <li><a href="#" className="text-sm text-gray-400 hover:text-amber-400 transition-colors">Player Guides</a></li>
-                      <li><a href="#" className="text-sm text-gray-400 hover:text-amber-400 transition-colors">Scam Alerts</a></li>
-                    </>
-                  )}
-                </ul>
-              </div>
+            <div className="col-span-1">
+              <h3 className="text-sm font-display font-semibold text-white uppercase tracking-wider mb-4 md:mb-6">
+                {seo?.footer_column_1_title || 'Rankings'}
+              </h3>
+              <ul className="space-y-3 md:space-y-4">
+                {seo?.footer_column_1_links && seo.footer_column_1_links.length > 0 ? (
+                  seo.footer_column_1_links.map((link: any, index: number) => (
+                    <li key={index}>
+                      <Link to={link.url} className="text-sm text-gray-400 hover:text-amber-400 transition-colors">
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))
+                ) : (
+                  <>
+                    <li><Link to="/" className="text-sm text-gray-400 hover:text-amber-400 transition-colors">Top 10 Overall</Link></li>
+                    <li><Link to="/collections" className="text-sm text-gray-400 hover:text-amber-400 transition-colors">Best Bonuses</Link></li>
+                    <li><Link to="/games" className="text-sm text-gray-400 hover:text-amber-400 transition-colors">Crypto Platforms</Link></li>
+                    <li><Link to="/news" className="text-sm text-gray-400 hover:text-amber-400 transition-colors">Newest Additions</Link></li>
+                  </>
+                )}
+              </ul>
             </div>
             
-            <div className="hidden md:block">
+            <div className="col-span-1">
+              <h3 className="text-sm font-display font-semibold text-white uppercase tracking-wider mb-4 md:mb-6">
+                {seo?.footer_column_2_title || 'Resources'}
+              </h3>
+              <ul className="space-y-3 md:space-y-4">
+                {seo?.footer_column_2_links && seo.footer_column_2_links.length > 0 ? (
+                  seo.footer_column_2_links.map((link: any, index: number) => (
+                    <li key={index}>
+                      <a href={link.url} className="text-sm text-gray-400 hover:text-amber-400 transition-colors">
+                        {link.label}
+                      </a>
+                    </li>
+                  ))
+                ) : (
+                  <>
+                    <li><a href="#" className="text-sm text-gray-400 hover:text-amber-400 transition-colors">Review Methodology</a></li>
+                    <li><a href="#" className="text-sm text-gray-400 hover:text-amber-400 transition-colors">Player Guides</a></li>
+                    <li><a href="#" className="text-sm text-gray-400 hover:text-amber-400 transition-colors">Scam Alerts</a></li>
+                  </>
+                )}
+              </ul>
+            </div>
+            
+            <div className="col-span-1 hidden md:block">
               <h3 className="text-sm font-display font-semibold text-white uppercase tracking-wider mb-6">
                 {seo?.footer_column_3_title || 'About Us'}
               </h3>
