@@ -12,6 +12,11 @@ export const SiteSettingsEdit = () => {
     resource: "site_settings",
     action: "edit",
     id: 1,
+    successNotification: () => ({
+      message: "Successfully saved SEO settings!",
+      description: "Changes have been applied.",
+      type: "success",
+    }),
   });
 
   return (

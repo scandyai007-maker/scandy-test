@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Refine, Authenticated } from "@refinedev/core";
 import { dataProvider } from "@refinedev/supabase";
 import { AuthPage, ErrorComponent, ThemedLayout, ThemedSider, useNotificationProvider } from "@refinedev/antd";
-import { ConfigProvider, App as AntdApp, App } from "antd";
+import { ConfigProvider, App as AntdApp } from "antd";
 import { Routes, Route, Outlet } from "react-router-dom";
 import routerBindings, { NavigateToResource, CatchAllNavigate, UnsavedChangesNotifier, DocumentTitleHandler } from "@refinedev/react-router";
 
@@ -24,15 +24,7 @@ import { CategoryList, CategoryCreate, CategoryEdit } from "./resources/categori
 import { TagList, TagCreate, TagEdit } from "./resources/tags";
 
 const AdminAppContent = () => {
-  const { notification } = App.useApp();
   const notificationProvider = useNotificationProvider();
-
-  useEffect(() => {
-    notification.success({
-      message: "Notification System Initialized",
-      description: "You should see this message on admin dashboard mount."
-    });
-  }, [notification]);
 
   return (
     <Refine
