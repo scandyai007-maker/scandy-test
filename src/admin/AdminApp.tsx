@@ -1,7 +1,7 @@
 import React from 'react';
 import { Refine, Authenticated } from "@refinedev/core";
 import { dataProvider } from "@refinedev/supabase";
-import { AuthPage, ErrorComponent, ThemedLayout, ThemedSider } from "@refinedev/antd";
+import { AuthPage, ErrorComponent, ThemedLayout, ThemedSider, useNotificationProvider } from "@refinedev/antd";
 import { ConfigProvider, App as AntdApp } from "antd";
 import { Routes, Route, Outlet } from "react-router-dom";
 import routerBindings, { NavigateToResource, CatchAllNavigate, UnsavedChangesNotifier, DocumentTitleHandler } from "@refinedev/react-router";
@@ -31,6 +31,7 @@ export default function AdminApp() {
           dataProvider={dataProvider(supabase)}
           authProvider={authProvider}
           routerProvider={routerBindings}
+          notificationProvider={useNotificationProvider()}
           resources={[
             {
               name: "platforms",
