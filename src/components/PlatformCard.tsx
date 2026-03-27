@@ -63,11 +63,17 @@ export default function PlatformCard({ platform, index, variant = 'grid', rank }
               <Link to={`/games/${platform.slug}`} className="flex-1 py-3.5 rounded-xl bg-gray-800/50 text-white text-sm font-bold text-center border border-gray-700 active:scale-95 transition-transform">
                 Review
               </Link>
-              <button className={`flex-[1.8] py-3.5 rounded-xl font-bold text-sm flex items-center justify-center gap-2 active:scale-95 transition-transform ${
-                index === 0 ? 'bg-amber-500 text-[#111827]' : 'bg-emerald-600 text-[#ffffff]'
-              }`}>
+              <a 
+                href={platform.affiliate_link || '#'} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className={`flex-[1.8] py-3.5 rounded-xl font-bold text-sm flex items-center justify-center gap-2 active:scale-95 transition-transform ${
+                  index === 0 ? 'bg-amber-500 text-[#111827]' : 'bg-emerald-600 text-[#ffffff]'
+                }`}
+                onClick={(e) => e.stopPropagation()}
+              >
                 Play Now <ExternalLink className="w-4 h-4" />
-              </button>
+              </a>
             </div>
           </>
         ) : (
@@ -89,7 +95,15 @@ export default function PlatformCard({ platform, index, variant = 'grid', rank }
               </div>
               <div className="flex gap-2 mt-auto">
                 <Link to={`/games/${platform.slug}`} className="px-3 py-1.5 rounded-md bg-gray-800 text-white text-[10px] font-medium text-center border border-gray-700" onClick={(e) => e.stopPropagation()}>Review</Link>
-                <button className="flex-1 py-1.5 rounded-md bg-emerald-600 text-[#ffffff] text-[10px] font-bold flex items-center justify-center gap-1" onClick={(e) => e.stopPropagation()}>Play <ExternalLink className="w-3 h-3" /></button>
+                <a 
+                  href={platform.affiliate_link || '#'} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex-1 py-1.5 rounded-md bg-emerald-600 text-[#ffffff] text-[10px] font-bold flex items-center justify-center gap-1" 
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  Play <ExternalLink className="w-3 h-3" />
+                </a>
               </div>
             </div>
           </>
@@ -141,13 +155,19 @@ export default function PlatformCard({ platform, index, variant = 'grid', rank }
               </div>
               
               <div className="flex flex-col gap-2">
-                <button className={`px-6 py-2.5 rounded-lg font-semibold text-sm active:scale-95 transition-transform flex items-center justify-center gap-2 ${
-                  index === 0 
-                    ? 'bg-amber-500 hover:bg-amber-400 text-[#111827] shadow-[0_0_15px_rgba(245,158,11,0.3)]' 
-                    : 'bg-emerald-600 hover:bg-emerald-500 text-[#ffffff]'
-                }`}>
+                <a 
+                  href={platform.affiliate_link || '#'} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className={`px-6 py-2.5 rounded-lg font-semibold text-sm active:scale-95 transition-transform flex items-center justify-center gap-2 ${
+                    index === 0 
+                      ? 'bg-amber-500 hover:bg-amber-400 text-[#111827] shadow-[0_0_15px_rgba(245,158,11,0.3)]' 
+                      : 'bg-emerald-600 hover:bg-emerald-500 text-[#ffffff]'
+                  }`}
+                  onClick={(e) => e.stopPropagation()}
+                >
                   Play Now <ExternalLink className="w-4 h-4" />
-                </button>
+                </a>
                 <Link to={`/games/${platform.slug}`} className="text-xs text-center text-gray-400 hover:text-white transition-colors">
                   Read Review
                 </Link>
@@ -212,12 +232,15 @@ export default function PlatformCard({ platform, index, variant = 'grid', rank }
               >
                 Review
               </Link>
-              <button 
+              <a 
+                href={platform.affiliate_link || '#'} 
+                target="_blank" 
+                rel="noopener noreferrer"
                 className="flex-[2] py-2.5 rounded-lg bg-emerald-600 text-[#ffffff] text-sm font-bold flex items-center justify-center gap-2 active:scale-95 transition-transform"
                 onClick={(e) => e.stopPropagation()}
               >
                 Play Now <ExternalLink className="w-4 h-4" />
-              </button>
+              </a>
             </div>
           </>
         )}

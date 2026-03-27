@@ -34,6 +34,8 @@ export default async function handler(req, res) {
     
     const mockData = {
       name: name,
+      slug: (keyword || 'new-platform').toLowerCase().replace(/\s+/g, '-'),
+      affiliate_link: `https://example.com/go/${(keyword || 'platform').toLowerCase().replace(/\s+/g, '-')}`,
       category: isPakistan ? "Pakistan Premium" : "International Gaming",
       score: 9.2,
       bonus: isPakistan 

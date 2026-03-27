@@ -146,6 +146,7 @@ export const PlatformCreate = () => {
   const handleAIFill = (data: any) => {
     form.setFieldsValue({
       ...data,
+      affiliate_link: `https://example.com/go/${data.name?.toLowerCase().replace(/\s+/g, '-')}`,
       // Handle slug if empty
       slug: data.name?.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
     });
@@ -161,6 +162,9 @@ export const PlatformCreate = () => {
       <Form {...formProps} form={form} layout="vertical">
         <Form.Item label="Platform Name" name="name" rules={[{ required: true }]}>
           <Input />
+        </Form.Item>
+        <Form.Item label="Affiliate Redirect Link" name="affiliate_link" rules={[{ required: true }]} extra="The URL players will be redirected to when clicking Play Now / Claim Bonus">
+          <Input placeholder="https://..." />
         </Form.Item>
         <Form.Item label="Slug (URL Path)" name="slug" rules={[{ required: true }]} extra="Auto-generated from name if left empty. Only lowercase letters, numbers, and hyphens.">
           <Input placeholder="e.g. pakwin777" />
@@ -224,7 +228,10 @@ export const PlatformEdit = () => {
   });
 
   const handleAIFill = (data: any) => {
-    form.setFieldsValue(data);
+    form.setFieldsValue({
+      ...data,
+      affiliate_link: `https://example.com/go/${data.name?.toLowerCase().replace(/\s+/g, '-')}`
+    });
   };
 
   return (
@@ -237,6 +244,9 @@ export const PlatformEdit = () => {
       <Form {...formProps} form={form} layout="vertical">
         <Form.Item label="Platform Name" name="name" rules={[{ required: true }]}>
           <Input />
+        </Form.Item>
+        <Form.Item label="Affiliate Redirect Link" name="affiliate_link" rules={[{ required: true }]} extra="The URL players will be redirected to when clicking Play Now / Claim Bonus">
+          <Input placeholder="https://..." />
         </Form.Item>
         <Form.Item label="Slug (URL Path)" name="slug" rules={[{ required: true }]} extra="The URL-friendly identifier for this platform.">
           <Input placeholder="e.g. pakwin777" />

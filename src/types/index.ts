@@ -10,6 +10,7 @@ export interface Platform {
   content?: string | null;
   logo: string;
   is_verified: boolean;
+  affiliate_link?: string;
   created_at?: string;
   updated_at?: string;
   seo_title?: string;

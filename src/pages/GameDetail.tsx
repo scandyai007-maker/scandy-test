@@ -147,9 +147,14 @@ export default function GameDetail() {
                   </Link>
                 ))}
               </div>
-              <button className="w-full py-3.5 rounded-xl bg-amber-500 text-[#111827] font-bold active:scale-[0.98] transition-all shadow-[0_0_20px_rgba(245,158,11,0.2)] flex items-center justify-center gap-2">
+               <a 
+                href={platform.affiliate_link || '#'} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="w-full py-3.5 rounded-xl bg-amber-500 text-[#111827] font-bold active:scale-[0.98] transition-all shadow-[0_0_20px_rgba(245,158,11,0.2)] flex items-center justify-center gap-2 text-center"
+              >
                 Claim Bonus <ExternalLink className="w-4 h-4" />
-              </button>
+              </a>
             </div>
 
             {/* Desktop Score & CTA (Hidden on Mobile) */}
@@ -162,9 +167,14 @@ export default function GameDetail() {
                   <span className="text-lg text-gray-500">/10</span>
                 </div>
               </div>
-              <button className="w-full px-6 py-4 rounded-xl bg-amber-500 hover:bg-amber-400 text-[#111827] font-bold transition-transform active:scale-95 shadow-[0_0_20px_rgba(245,158,11,0.2)] flex items-center justify-center gap-2">
+               <a 
+                href={platform.affiliate_link || '#'} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="w-full px-6 py-4 rounded-xl bg-amber-500 hover:bg-amber-400 text-[#111827] font-bold transition-transform active:scale-95 shadow-[0_0_20px_rgba(245,158,11,0.2)] flex items-center justify-center gap-2 text-center"
+              >
                 Claim Bonus <ExternalLink className="w-5 h-5" />
-              </button>
+              </a>
             </div>
           </div>
         </div>
