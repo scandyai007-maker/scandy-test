@@ -89,10 +89,26 @@ export const SiteSettingsEdit = () => {
         </Form.Item>
 
         {/* ── Footer ── */}
-        <Divider orientation="left" style={{ fontSize: '16px', fontWeight: 600 }}>Footer</Divider>
-        <Form.Item label="Copyright Text" name="footer_copyright" extra="Displayed in the site footer. Leave empty for default.">
+        <Divider orientation="left" style={{ fontSize: '16px', fontWeight: 600 }}>Footer Settings</Divider>
+        <Form.Item label="Copyright Text (Test Update)" name="footer_copyright" extra="Displayed in the site footer. Leave empty for default.">
           <Input placeholder="© 2026 TrustRank Analytics. All rights reserved." />
         </Form.Item>
+        <Form.Item label="Footer Description" name="footer_description" extra="General description shown in the footer.">
+          <Input.TextArea rows={3} placeholder="Independent, data-driven reviews and rankings for premium online platforms..." />
+        </Form.Item>
+        
+        <Divider orientation="left" style={{ fontSize: '14px', fontWeight: 500 }}>Column Titles</Divider>
+        <Space direction="horizontal" style={{ width: '100%' }} size="large">
+          <Form.Item label="Column 1 Title (Rankings)" name="footer_column_1_title">
+            <Input placeholder="Rankings" />
+          </Form.Item>
+          <Form.Item label="Column 2 Title (Resources)" name="footer_column_2_title">
+            <Input placeholder="Resources" />
+          </Form.Item>
+          <Form.Item label="Column 3 Title (About Us)" name="footer_column_3_title">
+            <Input placeholder="About Us" />
+          </Form.Item>
+        </Space>
       </Form>
     </Edit>
   );

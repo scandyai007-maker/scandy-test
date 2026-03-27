@@ -64,3 +64,21 @@ export interface CollectionPlatform {
   rank: number;
   platforms?: Platform; // Used when joining
 }
+
+export interface SiteSettings {
+  id: number;
+  site_name: string;
+  seo_title: string;
+  seo_description: string;
+  seo_keywords: string;
+  favicon_url?: string;
+  og_image_url?: string;
+  canonical_base_url?: string;
+  google_site_verification?: string;
+  google_analytics_id?: string;
+  footer_copyright?: string;
+  footer_description?: string;
+  footer_column_1_title?: string;
+  footer_column_2_title?: string;
+  footer_column_3_title?: string;
+}

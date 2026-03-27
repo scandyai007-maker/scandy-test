@@ -241,7 +241,7 @@ export default function Layout() {
                 </span>
               </Link>
               <p className="text-sm text-gray-400 leading-relaxed mb-6">
-                Independent, data-driven reviews and rankings for premium online platforms. We analyze, verify, and rank so you can play with confidence.
+                {seo?.footer_description || 'Independent, data-driven reviews and rankings for premium online platforms. We analyze, verify, and rank so you can play with confidence.'}
               </p>
               <div className="flex items-center gap-2 text-amber-500/50">
                 <Coins className="w-5 h-5" />
@@ -251,7 +251,9 @@ export default function Layout() {
             
             <div className="grid grid-cols-2 md:grid-cols-1 gap-8 md:gap-0">
               <div>
-                <h3 className="text-sm font-display font-semibold text-white uppercase tracking-wider mb-4 md:mb-6">Rankings</h3>
+                <h3 className="text-sm font-display font-semibold text-white uppercase tracking-wider mb-4 md:mb-6">
+                  {seo?.footer_column_1_title || 'Rankings'}
+                </h3>
                 <ul className="space-y-3 md:space-y-4">
                   <li><Link to="/" className="text-sm text-gray-400 hover:text-amber-400 transition-colors">Top 10 Overall</Link></li>
                   <li><Link to="/collections" className="text-sm text-gray-400 hover:text-amber-400 transition-colors">Best Bonuses</Link></li>
@@ -261,7 +263,9 @@ export default function Layout() {
               </div>
               
               <div className="md:mt-8">
-                <h3 className="text-sm font-display font-semibold text-white uppercase tracking-wider mb-4 md:mb-6">Resources</h3>
+                <h3 className="text-sm font-display font-semibold text-white uppercase tracking-wider mb-4 md:mb-6">
+                  {seo?.footer_column_2_title || 'Resources'}
+                </h3>
                 <ul className="space-y-3 md:space-y-4">
                   <li><a href="#" className="text-sm text-gray-400 hover:text-amber-400 transition-colors">Review Methodology</a></li>
                   <li><a href="#" className="text-sm text-gray-400 hover:text-amber-400 transition-colors">Player Guides</a></li>
@@ -271,7 +275,9 @@ export default function Layout() {
             </div>
             
             <div className="hidden md:block">
-              <h3 className="text-sm font-display font-semibold text-white uppercase tracking-wider mb-6">About Us</h3>
+              <h3 className="text-sm font-display font-semibold text-white uppercase tracking-wider mb-6">
+                {seo?.footer_column_3_title || 'About Us'}
+              </h3>
               <ul className="space-y-4">
                 <li><a href="#" className="text-sm text-gray-400 hover:text-amber-400 transition-colors">Our Team</a></li>
                 <li><a href="#" className="text-sm text-gray-400 hover:text-amber-400 transition-colors">Contact</a></li>
