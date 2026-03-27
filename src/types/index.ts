@@ -81,4 +81,7 @@ export interface SiteSettings {
   footer_column_1_title?: string;
   footer_column_2_title?: string;
   footer_column_3_title?: string;
+  footer_column_1_links?: Array<{ label: string; url: string }>;
+  footer_column_2_links?: Array<{ label: string; url: string }>;
+  footer_column_3_links?: Array<{ label: string; url: string }>;
 }

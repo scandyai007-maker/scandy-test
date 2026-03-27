@@ -98,17 +98,95 @@ export const SiteSettingsEdit = () => {
         </Form.Item>
         
         <Divider orientation="left" style={{ fontSize: '14px', fontWeight: 500 }}>Column Titles</Divider>
-        <Space direction="horizontal" style={{ width: '100%' }} size="large">
-          <Form.Item label="Column 1 Title (Rankings)" name="footer_column_1_title">
+        <Space direction="horizontal" style={{ width: '100%', alignItems: 'flex-start' }} size="large">
+          <Form.Item label="Column 1 Title (Rankings)" name="footer_column_1_title" style={{ flex: 1 }}>
             <Input placeholder="Rankings" />
           </Form.Item>
-          <Form.Item label="Column 2 Title (Resources)" name="footer_column_2_title">
+          <Form.Item label="Column 2 Title (Resources)" name="footer_column_2_title" style={{ flex: 1 }}>
             <Input placeholder="Resources" />
           </Form.Item>
-          <Form.Item label="Column 3 Title (About Us)" name="footer_column_3_title">
+          <Form.Item label="Column 3 Title (About Us)" name="footer_column_3_title" style={{ flex: 1 }}>
             <Input placeholder="About Us" />
           </Form.Item>
         </Space>
+
+        <Divider orientation="left" style={{ fontSize: '14px', fontWeight: 500 }}>Column Links</Divider>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {/* Column 1 Links */}
+          <div className="bg-gray-50/50 p-4 rounded-lg border border-gray-100">
+            <h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-4">Column 1 Links</h4>
+            <Form.List name="footer_column_1_links">
+              {(fields, { add, remove }) => (
+                <>
+                  {fields.map(({ key, name, ...restField }) => (
+                    <Space key={key} style={{ display: 'flex', marginBottom: 8 }} align="baseline">
+                      <Form.Item {...restField} name={[name, 'label']} rules={[{ required: true, message: 'Missing label' }]}>
+                        <Input placeholder="Label" />
+                      </Form.Item>
+                      <Form.Item {...restField} name={[name, 'url']} rules={[{ required: true, message: 'Missing URL' }]}>
+                        <Input placeholder="URL" />
+                      </Form.Item>
+                      <Button type="text" danger onClick={() => remove(name)}>Remove</Button>
+                    </Space>
+                  ))}
+                  <Form.Item>
+                    <Button type="dashed" onClick={() => add()} block>Add Link</Button>
+                  </Form.Item>
+                </>
+              )}
+            </Form.List>
+          </div>
+
+          {/* Column 2 Links */}
+          <div className="bg-gray-50/50 p-4 rounded-lg border border-gray-100">
+            <h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-4">Column 2 Links</h4>
+            <Form.List name="footer_column_2_links">
+              {(fields, { add, remove }) => (
+                <>
+                  {fields.map(({ key, name, ...restField }) => (
+                    <Space key={key} style={{ display: 'flex', marginBottom: 8 }} align="baseline">
+                      <Form.Item {...restField} name={[name, 'label']} rules={[{ required: true, message: 'Missing label' }]}>
+                        <Input placeholder="Label" />
+                      </Form.Item>
+                      <Form.Item {...restField} name={[name, 'url']} rules={[{ required: true, message: 'Missing URL' }]}>
+                        <Input placeholder="URL" />
+                      </Form.Item>
+                      <Button type="text" danger onClick={() => remove(name)}>Remove</Button>
+                    </Space>
+                  ))}
+                  <Form.Item>
+                    <Button type="dashed" onClick={() => add()} block>Add Link</Button>
+                  </Form.Item>
+                </>
+              )}
+            </Form.List>
+          </div>
+
+          {/* Column 3 Links */}
+          <div className="bg-gray-50/50 p-4 rounded-lg border border-gray-100">
+            <h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-4">Column 3 Links</h4>
+            <Form.List name="footer_column_3_links">
+              {(fields, { add, remove }) => (
+                <>
+                  {fields.map(({ key, name, ...restField }) => (
+                    <Space key={key} style={{ display: 'flex', marginBottom: 8 }} align="baseline">
+                      <Form.Item {...restField} name={[name, 'label']} rules={[{ required: true, message: 'Missing label' }]}>
+                        <Input placeholder="Label" />
+                      </Form.Item>
+                      <Form.Item {...restField} name={[name, 'url']} rules={[{ required: true, message: 'Missing URL' }]}>
+                        <Input placeholder="URL" />
+                      </Form.Item>
+                      <Button type="text" danger onClick={() => remove(name)}>Remove</Button>
+                    </Space>
+                  ))}
+                  <Form.Item>
+                    <Button type="dashed" onClick={() => add()} block>Add Link</Button>
+                  </Form.Item>
+                </>
+              )}
+            </Form.List>
+          </div>
+        </div>
       </Form>
     </Edit>
   );

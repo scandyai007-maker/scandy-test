@@ -255,10 +255,22 @@ export default function Layout() {
                   {seo?.footer_column_1_title || 'Rankings'}
                 </h3>
                 <ul className="space-y-3 md:space-y-4">
-                  <li><Link to="/" className="text-sm text-gray-400 hover:text-amber-400 transition-colors">Top 10 Overall</Link></li>
-                  <li><Link to="/collections" className="text-sm text-gray-400 hover:text-amber-400 transition-colors">Best Bonuses</Link></li>
-                  <li><Link to="/games" className="text-sm text-gray-400 hover:text-amber-400 transition-colors">Crypto Platforms</Link></li>
-                  <li><Link to="/news" className="text-sm text-gray-400 hover:text-amber-400 transition-colors">Newest Additions</Link></li>
+                  {seo?.footer_column_1_links && seo.footer_column_1_links.length > 0 ? (
+                    seo.footer_column_1_links.map((link: any, index: number) => (
+                      <li key={index}>
+                        <Link to={link.url} className="text-sm text-gray-400 hover:text-amber-400 transition-colors">
+                          {link.label}
+                        </Link>
+                      </li>
+                    ))
+                  ) : (
+                    <>
+                      <li><Link to="/" className="text-sm text-gray-400 hover:text-amber-400 transition-colors">Top 10 Overall</Link></li>
+                      <li><Link to="/collections" className="text-sm text-gray-400 hover:text-amber-400 transition-colors">Best Bonuses</Link></li>
+                      <li><Link to="/games" className="text-sm text-gray-400 hover:text-amber-400 transition-colors">Crypto Platforms</Link></li>
+                      <li><Link to="/news" className="text-sm text-gray-400 hover:text-amber-400 transition-colors">Newest Additions</Link></li>
+                    </>
+                  )}
                 </ul>
               </div>
               
@@ -267,9 +279,21 @@ export default function Layout() {
                   {seo?.footer_column_2_title || 'Resources'}
                 </h3>
                 <ul className="space-y-3 md:space-y-4">
-                  <li><a href="#" className="text-sm text-gray-400 hover:text-amber-400 transition-colors">Review Methodology</a></li>
-                  <li><a href="#" className="text-sm text-gray-400 hover:text-amber-400 transition-colors">Player Guides</a></li>
-                  <li><a href="#" className="text-sm text-gray-400 hover:text-amber-400 transition-colors">Scam Alerts</a></li>
+                  {seo?.footer_column_2_links && seo.footer_column_2_links.length > 0 ? (
+                    seo.footer_column_2_links.map((link: any, index: number) => (
+                      <li key={index}>
+                        <a href={link.url} className="text-sm text-gray-400 hover:text-amber-400 transition-colors">
+                          {link.label}
+                        </a>
+                      </li>
+                    ))
+                  ) : (
+                    <>
+                      <li><a href="#" className="text-sm text-gray-400 hover:text-amber-400 transition-colors">Review Methodology</a></li>
+                      <li><a href="#" className="text-sm text-gray-400 hover:text-amber-400 transition-colors">Player Guides</a></li>
+                      <li><a href="#" className="text-sm text-gray-400 hover:text-amber-400 transition-colors">Scam Alerts</a></li>
+                    </>
+                  )}
                 </ul>
               </div>
             </div>
@@ -279,10 +303,22 @@ export default function Layout() {
                 {seo?.footer_column_3_title || 'About Us'}
               </h3>
               <ul className="space-y-4">
-                <li><a href="#" className="text-sm text-gray-400 hover:text-amber-400 transition-colors">Our Team</a></li>
-                <li><a href="#" className="text-sm text-gray-400 hover:text-amber-400 transition-colors">Contact</a></li>
-                <li><a href="#" className="text-sm text-gray-400 hover:text-amber-400 transition-colors">Privacy Policy</a></li>
-                <li><a href="#" className="text-sm text-gray-400 hover:text-amber-400 transition-colors">Terms of Service</a></li>
+                {seo?.footer_column_3_links && seo.footer_column_3_links.length > 0 ? (
+                  seo.footer_column_3_links.map((link: any, index: number) => (
+                    <li key={index}>
+                      <a href={link.url} className="text-sm text-gray-400 hover:text-amber-400 transition-colors">
+                        {link.label}
+                      </a>
+                    </li>
+                  ))
+                ) : (
+                  <>
+                    <li><a href="#" className="text-sm text-gray-400 hover:text-amber-400 transition-colors">Our Team</a></li>
+                    <li><a href="#" className="text-sm text-gray-400 hover:text-amber-400 transition-colors">Contact</a></li>
+                    <li><a href="#" className="text-sm text-gray-400 hover:text-amber-400 transition-colors">Privacy Policy</a></li>
+                    <li><a href="#" className="text-sm text-gray-400 hover:text-amber-400 transition-colors">Terms of Service</a></li>
+                  </>
+                )}
               </ul>
             </div>
           </div>
