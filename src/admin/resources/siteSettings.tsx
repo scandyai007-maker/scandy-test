@@ -89,8 +89,8 @@ export const SiteSettingsEdit = () => {
         </Form.Item>
 
         {/* ── Footer ── */}
-        <Divider orientation="left" style={{ fontSize: '16px', fontWeight: 600 }}>Footer Settings</Divider>
-        <Form.Item label="Copyright Text (Test Update)" name="footer_copyright" extra="Displayed in the site footer. Leave empty for default.">
+        <Divider orientation="left" style={{ fontSize: '16px', fontWeight: 600 }}>Footer</Divider>
+        <Form.Item label="Copyright Text" name="footer_copyright" extra="Displayed in the site footer. Leave empty for default.">
           <Input placeholder="© 2026 TrustRank Analytics. All rights reserved." />
         </Form.Item>
         <Form.Item label="Footer Description" name="footer_description" extra="General description shown in the footer.">
