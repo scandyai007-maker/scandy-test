@@ -1,8 +1,74 @@
-import React from "react";
+import React, { useState } from "react";
 import { List, Create, Edit, useTable, useForm, EditButton, DeleteButton, BooleanField, useSelect, DateField } from "@refinedev/antd";
-import { Table, Space, Avatar, Form, Input, InputNumber, Checkbox, Select } from "antd";
+import { Table, Space, Avatar, Form, Input, InputNumber, Checkbox, Select, Button, Modal, message } from "antd";
+import { Sparkles } from "lucide-react";
 import { ImageUpload } from "../components/ImageUpload";
 import { RichTextEditor } from "../components/RichTextEditor";
+
+const AIFillButton = ({ onFill }: { onFill: (data: any) => void }) => {
+  const [isModalVisible, setIsModalVisible] = React.useState(false);
+  const [keyword, setKeyword] = React.useState("");
+  const [isLoading, setIsLoading] = React.useState(false);
+
+  const handleGenerate = async () => {
+    if (!keyword) {
+      message.error("Please enter a keyword");
+      return;
+    }
+    setIsLoading(true);
+    try {
+      const response = await fetch("/api/ai-fill-platform", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ keyword }),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        onFill(data);
+        setIsModalVisible(false);
+        message.success("Content generated successfully!");
+      } else {
+        message.error(data.error || "Failed to generate content");
+      }
+    } catch (error) {
+      message.error("Network error");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <>
+      <Button 
+        type="primary" 
+        icon={<Sparkles size={16} />} 
+        onClick={() => setIsModalVisible(true)}
+        className="bg-purple-600 hover:bg-purple-700 border-purple-600 flex items-center gap-1"
+      >
+        AI 一键填充
+      </Button>
+      <Modal
+        title="AI 内容助手"
+        open={isModalVisible}
+        onOk={handleGenerate}
+        onCancel={() => setIsModalVisible(false)}
+        confirmLoading={isLoading}
+        okText="生成内容"
+        cancelText="取消"
+        destroyOnClose
+      >
+        <p className="mb-4 text-gray-500 text-sm">输入平台名称或地区关键词（如: PAKWIN777 或 Pakistan Gaming），AI 将自动为您填充表单。</p>
+        <Input 
+          placeholder="输入关键词..." 
+          value={keyword} 
+          onChange={(e) => setKeyword(e.target.value)}
+          onPressEnter={handleGenerate}
+          autoFocus
+        />
+      </Modal>
+    </>
+  );
+};
 
 export const PlatformList = () => {
   const { tableProps } = useTable({
@@ -61,7 +127,7 @@ export const PlatformList = () => {
 };
 
 export const PlatformCreate = () => {
-  const { formProps, saveButtonProps } = useForm();
+  const { formProps, saveButtonProps, form } = useForm();
   
   const { selectProps: tagsSelectProps } = useSelect({
     resource: "tags",
@@ -77,9 +143,22 @@ export const PlatformCreate = () => {
     sorters: [{ field: "rank", order: "asc" }]
   });
 
+  const handleAIFill = (data: any) => {
+    form.setFieldsValue({
+      ...data,
+      // Handle slug if empty
+      slug: data.name?.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
+    });
+  };
+
   return (
-    <Create saveButtonProps={saveButtonProps}>
-      <Form {...formProps} layout="vertical">
+    <Create 
+      saveButtonProps={saveButtonProps}
+      headerProps={{
+        extra: <AIFillButton onFill={handleAIFill} />
+      }}
+    >
+      <Form {...formProps} form={form} layout="vertical">
         <Form.Item label="Platform Name" name="name" rules={[{ required: true }]}>
           <Input />
         </Form.Item>
@@ -128,7 +207,7 @@ export const PlatformCreate = () => {
 };
 
 export const PlatformEdit = () => {
-  const { formProps, saveButtonProps } = useForm();
+  const { formProps, saveButtonProps, form } = useForm();
 
   const { selectProps: tagsSelectProps } = useSelect({
     resource: "tags",
@@ -144,9 +223,18 @@ export const PlatformEdit = () => {
     sorters: [{ field: "rank", order: "asc" }]
   });
 
+  const handleAIFill = (data: any) => {
+    form.setFieldsValue(data);
+  };
+
   return (
-    <Edit saveButtonProps={saveButtonProps}>
-      <Form {...formProps} layout="vertical">
+    <Edit 
+      saveButtonProps={saveButtonProps}
+      headerProps={{
+        extra: <AIFillButton onFill={handleAIFill} />
+      }}
+    >
+      <Form {...formProps} form={form} layout="vertical">
         <Form.Item label="Platform Name" name="name" rules={[{ required: true }]}>
           <Input />
         </Form.Item>
