@@ -1,4 +1,4 @@
-// Serverless Function: AI Content Fill
+// Serverless Function: AI Content Fill for News
 // Stack: Tavily (web search) + DeepSeek V3 (content generation, OpenAI-compatible)
 
 const DEEPSEEK_API_URL = 'https://api.deepseek.com/v1/chat/completions';
@@ -17,9 +17,9 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method Not Allowed' });
   }
 
-  const { keyword } = req.body;
-  if (!keyword) {
-    return res.status(400).json({ error: 'Keyword is required' });
+  const { theme } = req.body;
+  if (!theme) {
+    return res.status(400).json({ error: 'Theme (keyword) is required' });
   }
 
   const DEEPSEEK_API_KEY = process.env.DEEPSEEK_API_KEY;
@@ -39,9 +39,9 @@ export default async function handler(req, res) {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             api_key: TAVILY_API_KEY,
-            query: `${keyword} online casino gaming platform review bonus`,
+            query: `${theme} latest news online casino iGaming 2026`,
             search_depth: 'advanced',
-            max_results: 5,
+            max_results: 3,
             include_answer: true,
           }),
         });
@@ -61,33 +61,32 @@ export default async function handler(req, res) {
     }
 
     // ── Step 2: Build Messages ───────────────────────────────────────────
-    const systemPrompt = `You are an expert iGaming content strategist and SEO copywriter specializing in high-conversion platform reviews for markets in Pakistan, Bangladesh, India, and Southeast Asia.
+    const systemPrompt = `You are an expert iGaming content writer who creates highly structured, educational, and SEO-optimized blog posts similar to leading casino guides.
 
-CRITICAL SEO & UNIQUE CONTENT RULES (DO NOT IGNORE):
-1. Avoid repetitive AI structures (e.g., standard "About / Features / Verdict" formats). Introduce high variance in your headings (e.g., use "Is [Name] Legit?", "Banking Experience", "Mobile Gameplay", "Security Check").
-2. Write with high "burstiness" and "perplexity". Mix short punchy sentences with longer analytical ones to bypass AI detectors.
-3. Be objective but persuasive. Mention a minor drawback or local constraint to increase trust (EEAT score).
-4. Naturally weave local payment methods (JazzCash, GCash, UPI, etc.) into the narrative if the region implies it.
+CRITICAL STYLE & FORMATTING RULES:
+1. Tone & Structure: Write with a clear, objective, and educational tone. Start with a direct 1-2 paragraph introduction stating what the article will cover without generic fluff like "In the fast-paced world of...". End with a 1-2 paragraph logical conclusion.
+2. Numbered Subheadings: Break the core content into 4-6 distinct sections using numbered headings (e.g., "<h3>1. Data Encryption and Secure Connections</h3>", "<h3>2. Account Verification (KYC Systems)</h3>").
+3. Bullet Points: Under almost every numbered heading, include a short introductory sentence followed by a cohesive bulleted list mapping out exactly what it entails (e.g., "What encryption helps protect: <ul><li>Login credentials</li><li>Payment information</li></ul>").
+4. No AI Tropes: Do not use over-enthusiastic language, exclamation marks, or robotic transitions. Keep it highly grounded, like an informative technical or policy guide.
+5. Internal Links: Naturally insert 2-3 anchor text sentences pretending to link to related guides (e.g., "<p><em>Read more: <a href="#">Online casino payment methods explained</a></em></p>").
 
-JSON OUTPUT RULE: Return ONLY a valid JSON object. No markdown, no code fences. Start with { and end with }.
+JSON OUTPUT RULE: Return ONLY a valid JSON object. No markdown fences. Start with { and end with }.
 
 Required JSON keys:
-- "name": Platform display name (string)
+- "title": Clean, highly descriptive title like "How Online Casino Platforms Protect Player Accounts: Security Systems Explained" (string)
 - "slug": lowercase URL slug with hyphens (string)
-- "affiliate_link": e.g. https://go.example.com/platform-slug (string)
-- "category": one of "Pakistan Premium", "Bangladesh Top Pick", "India Trusted", "International Gaming" (string)
-- "score": number 8.0–9.9 with one decimal (number)
-- "bonus": Action-driven welcome bonus with specific amounts (string)
-- "features": 4 UNIQUE selling points without generic fluff (array of 4 strings)
-- "tags": 3 relevant local or feature tags (array of 3 strings)
-- "content": HTML review 500-700 words. USE VARYING <h3> headers (NEVER use exactly "About/Highlights/Verdict"). Use rich formatting: <p>, <ul>, <li>, <strong>, <blockquote> (string)
-- "seo_title": 50-60 char click-worthy title including 2026 (string)
-- "seo_description": 150-160 char meta description creating urgency/curiosity (string)
-- "seo_keywords": 5-8 highly relevant LSI keywords (string)`;
+- "excerpt": 2-3 sentences max summarizing the content directly (string)
+- "category": one of "Casino Guide", "Industry News", "Regulation", "New Releases" (string)
+- "author": "Editorial Team" (string)
+- "tags": 3 relevant educational or feature tags (array of 3 strings)
+- "content": HTML article 500-800 words. MUST strictly follow the numbered <h3> and <ul><li> pattern described above. (string)
+- "seo_title": 50-60 char click-worthy title (string)
+- "seo_description": 150-160 char meta description creating curiosity (string)
+- "seo_keywords": 5-8 highly relevant descriptive keywords (string)`;
 
     const userMessage = searchContext
-      ? `Task: Create a highly unique, human-like SEO platform review for: "${keyword}"\n\nReal-time Web Data to weave into your review (DO NOT just copy it, analyze it):\n${searchContext}`
-      : `Task: Create a highly unique, human-like SEO platform review for: "${keyword}"\n\nNo live search data available. Rely on expert knowledge to craft an authoritative, highly detailed profile that stands out from typical casino templates.`;
+      ? `Task: Write an authoritative, educational blog post based on this theme: "${theme}"\n\nReal-time Web Data to influence your article:\n${searchContext}`
+      : `Task: Write an authoritative, educational blog post based on this theme: "${theme}"\n\nNo live search data available. Rely on expert knowledge to craft an authoritative guide on this topic.`;
 
     // ── Step 3: Call DeepSeek API ────────────────────────────────────────
     const deepseekRes = await fetch(DEEPSEEK_API_URL, {
@@ -102,8 +101,8 @@ Required JSON keys:
           { role: 'system', content: systemPrompt },
           { role: 'user', content: userMessage },
         ],
-        max_tokens: 2500,
-        temperature: 0.7,
+        max_tokens: 3000,
+        temperature: 0.8,
         response_format: { type: 'json_object' }, // Force JSON output
       }),
     });

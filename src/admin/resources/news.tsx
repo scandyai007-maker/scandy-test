@@ -1,8 +1,74 @@
-import React from "react";
+import React, { useState } from "react";
 import { List, Create, Edit, useTable, useForm, EditButton, DeleteButton, DateField, BooleanField, useSelect } from "@refinedev/antd";
-import { Table, Space, Form, Input, Checkbox, Select } from "antd";
+import { Table, Space, Form, Input, Checkbox, Select, Button, Modal, message } from "antd";
+import { Sparkles } from "lucide-react";
 import { ImageUpload } from "../components/ImageUpload";
 import { RichTextEditor } from "../components/RichTextEditor";
+
+const AIFillNewsButton = ({ onFill }: { onFill: (data: any) => void }) => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [theme, setTheme] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleGenerate = async () => {
+    if (!theme) {
+      message.error("Please enter a news theme or keyword");
+      return;
+    }
+    setIsLoading(true);
+    try {
+      const response = await fetch("/api/ai-fill-news", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ theme }),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        onFill(data);
+        setIsModalVisible(false);
+        message.success("News content generated successfully!");
+      } else {
+        message.error(data.error || "Failed to generate content");
+      }
+    } catch (error) {
+      message.error("Network error");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <>
+      <Button 
+        type="primary" 
+        icon={<Sparkles size={16} />} 
+        onClick={() => setIsModalVisible(true)}
+        className="bg-purple-600 hover:bg-purple-700 border-purple-600 flex items-center gap-1"
+      >
+        AI 撰写资讯
+      </Button>
+      <Modal
+        title="AI 撰稿助手"
+        open={isModalVisible}
+        onOk={handleGenerate}
+        onCancel={() => setIsModalVisible(false)}
+        confirmLoading={isLoading}
+        okText="生成文章"
+        cancelText="取消"
+        destroyOnClose
+      >
+        <p className="mb-4 text-gray-500 text-sm">输入您想报道的行业动态主题（如：“巴基斯坦严打非法博彩平台”、“2026年最新电竞赞助”），AI将为您撰写一篇图文并茂的深度行业文章。</p>
+        <Input.TextArea 
+          placeholder="例如：探讨 1xbet 在印度市场的本地化支付变革..." 
+          rows={3}
+          value={theme} 
+          onChange={(e) => setTheme(e.target.value)}
+          autoFocus
+        />
+      </Modal>
+    </>
+  );
+};
 
 export const NewsList = () => {
   const { tableProps } = useTable({
@@ -56,7 +122,7 @@ export const NewsList = () => {
 };
 
 export const NewsCreate = () => {
-  const { formProps, saveButtonProps } = useForm();
+  const { formProps, saveButtonProps, form } = useForm();
   
   const { selectProps: categorySelectProps } = useSelect({
     resource: "categories",
@@ -72,9 +138,21 @@ export const NewsCreate = () => {
     optionValue: "name",
   });
 
+  const handleAIFill = (data: any) => {
+    form.setFieldsValue({
+      ...data,
+      slug: data.slug || data.title?.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
+    });
+  };
+
   return (
-    <Create saveButtonProps={saveButtonProps}>
-      <Form {...formProps} layout="vertical">
+    <Create 
+      saveButtonProps={saveButtonProps}
+      headerProps={{
+        extra: <AIFillNewsButton onFill={handleAIFill} />
+      }}
+    >
+      <Form {...formProps} form={form} layout="vertical">
         <Form.Item label="Title" name="title" rules={[{ required: true }]}>
           <Input />
         </Form.Item>
@@ -120,7 +198,7 @@ export const NewsCreate = () => {
 };
 
 export const NewsEdit = () => {
-  const { formProps, saveButtonProps } = useForm();
+  const { formProps, saveButtonProps, form } = useForm();
   
   const { selectProps: categorySelectProps } = useSelect({
     resource: "categories",
@@ -136,9 +214,21 @@ export const NewsEdit = () => {
     optionValue: "name",
   });
 
+  const handleAIFill = (data: any) => {
+    form.setFieldsValue({
+      ...data,
+      slug: data.slug || data.title?.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
+    });
+  };
+
   return (
-    <Edit saveButtonProps={saveButtonProps}>
-      <Form {...formProps} layout="vertical">
+    <Edit 
+      saveButtonProps={saveButtonProps}
+      headerProps={{
+        extra: <AIFillNewsButton onFill={handleAIFill} />
+      }}
+    >
+      <Form {...formProps} form={form} layout="vertical">
         <Form.Item label="Title" name="title" rules={[{ required: true }]}>
           <Input />
         </Form.Item>
